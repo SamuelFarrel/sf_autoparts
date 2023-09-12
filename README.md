@@ -58,4 +58,9 @@
    
 
 ## Mengapa kita menggunakan virtual enviroment?
-- 
+- Virtual enviroment kita gunakan ketika kita ingin menggunakan dependencies yang berbeda-beda pada tiap project yang kita buat di OS (operating system) yang sama. Dengan mengaktifkan virtual enviroment, dependencies suatu project berada pada enviroment yang terpisah sehingga tidak terjadi bentrok dengan project lainnya.
+- Sehingga, kita tetap dapat membuat project Django tanpa virtual enviroment, tetapi ada kemungkinan dependencies bentrok dengan project lainnya.
+
+## Perbedaan MVC, MVT, MVVM
+- MVC: model pengembangan dengan arsitektur yang terbagi menjadi tiga komponen yaitu **model, view, dan controller**
+- MVT: 
