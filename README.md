@@ -55,12 +55,28 @@
 6. Mendeploy project melalui `adaptable.io`
    - Melakukan `add,push,commit` changes pada github project
    - Mendeploy project via adaptable dengan settings sesuai tutorial
+  
+## Bagan request client ke web aplikasi berbasis Django dan responnya
    
 
 ## Mengapa kita menggunakan virtual enviroment?
 - Virtual enviroment kita gunakan ketika kita ingin menggunakan dependencies yang berbeda-beda pada tiap project yang kita buat di OS (operating system) yang sama. Dengan mengaktifkan virtual enviroment, dependencies suatu project berada pada enviroment yang terpisah sehingga tidak terjadi bentrok dengan project lainnya.
 - Sehingga, kita tetap dapat membuat project Django tanpa virtual enviroment, tetapi ada kemungkinan dependencies bentrok dengan project lainnya.
 
-## Perbedaan MVC, MVT, MVVM
-- MVC: model pengembangan dengan arsitektur yang terbagi menjadi tiga komponen yaitu **model, view, dan controller**
-- MVT: 
+## Perbedaan MVC, MVT, dan MVVM
+- MVC :
+  - **Model**       : mengelola data dan berinteraksi dengan database      
+  - **View**        : menampilkan respon sebagai tanggapan pada input pengguna
+  - **Controller**  : menerima input dari pengguna dan mengopernya kepada view atau model
+    
+- MVT :
+  - **Model**       : memiliki fungsi yang sama seperti pada MVC
+  - **View**        : fungsinya juga untuk menampilkan respon, tetapi respopn yang ditampilkan berupa template HTML yang diberikan data
+  - **Template**    : template HTML dengan data yang diambil dari model, dan akan ditampilkan oleh view
+  
+- MVVVM :
+  - **Model**       : sama seperti pada MVC dan MVT
+  - **View**        : sama seperti pada MVC dan MVT
+  - **View Model**  : berfungsi sebagai penghubung antara model dan view, mengatur data yang akan ditampilkan pada tampilan
+
+Perbedaan yang terdapat pada ketiga arsitektur teresebut memiliki kelebihan dan kekurangan masing-masing, sehingga pemilihan arsitektur development isesuaikan dengan framework yang digunakan dan aplikasi yang akan dibuat
