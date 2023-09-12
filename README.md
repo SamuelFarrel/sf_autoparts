@@ -57,7 +57,7 @@
    - Mendeploy project via adaptable dengan settings sesuai tutorial
   
 ## Bagan request client ke web aplikasi berbasis Django dan responnya
-![alt text]([https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png](https://github.com/SamuelFarrel/sf_autoparts/blob/5fa11c7841916efaa82a7479b7a277a99ad669d5/Others/Tugas%202/bagan%20django.jpg) "Bagan Request Django")
+<img src="/Others/Tugas2//bagan django.jpg">
    
 
 ## Mengapa kita menggunakan virtual enviroment?
