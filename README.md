@@ -57,7 +57,7 @@
    - Mendeploy project via adaptable dengan settings sesuai tutorial
   
 ## Bagan request client ke web aplikasi berbasis Django dan responnya
-<img src="/Others/Tugas2//bagan django.jpg">
+<img src="/Others/Tugas 2/bagan django.jpg">
    
 
 ## Mengapa kita menggunakan virtual enviroment?
