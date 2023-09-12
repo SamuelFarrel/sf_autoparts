@@ -57,6 +57,7 @@
    - Mendeploy project via adaptable dengan settings sesuai tutorial
   
 ## Bagan request client ke web aplikasi berbasis Django dan responnya
+![alt text](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "Logo Title Text 1")
    
 
 ## Mengapa kita menggunakan virtual enviroment?
