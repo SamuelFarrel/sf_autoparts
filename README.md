@@ -17,4 +17,19 @@
    - Mengubah setting `ALLOWED_HOST` pada `settings.py` dengan menambahkan `"*"` untuk allow host deployment
    - Membuat file `.gitignore` berisi daftar file yang akan diignore oleh aktivitas Github (`pull,push,commit`)
    
-3. Mengi
+2. Membuat aplikasi `main`
+   - Menginisiasi aplikasi `main` dengan command `python manage.py startapp main`
+   - Membuat folder baru bernama `templates` pada folder aplikasi `main`
+   - Membuat file `main.html` pada folder `templates`
+     - `main.hmtl` akan menjadi tampilan utama website yang ditampilkan kepada pengguna
+
+3. Routing agar dapat menjalankan aplikasi `main`
+   - Membuat file `urls.py` pada folder aplikasi `main` dan menambahkan:
+      - ```
+        app_name = main
+        ```
+      - ```
+        urlpatterns = [
+                      path('', show_main, name='show_main'),
+        ]
+        ```
