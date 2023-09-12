@@ -24,12 +24,34 @@
      - `main.hmtl` akan menjadi tampilan utama website yang ditampilkan kepada pengguna
 
 3. Routing agar dapat menjalankan aplikasi `main`
-   - Membuat file `urls.py` pada folder aplikasi `main` dan menambahkan:
+   - Membuat file `urls.py` pada folder aplikasi `main` yang berisi:
       - ```
         app_name = main
-        ```
-      - ```
         urlpatterns = [
                       path('', show_main, name='show_main'),
         ]
         ```
+   - Mengedit file `urls.py` pada folder `sf_autoparts` (folder project):
+     - Menambahkan `path('main/', include('main.urls'))` pada list `urlpatterns`
+    
+4. Membuat model `item` pada aplikasi `main`
+   - Menginisiasi `item` dengan kode `class Item(models.Model):`, dan dengan attribute:
+     - `name` berupa `CharField`
+     - `amount` berupa `IntegerField`
+     - `description` berupa `TextField`
+     - `car` berupa `CharField`
+     - `production_date` berupa `DateField`
+     - `price` berupa `IntegerField`
+   - Setelah selesai mengedit model, saya melakukan migrasi model dengan command
+     `python manage.py makemigrations`
+   - Setelah migrasi, apply migration ke database dengan command `python manage.py migrate`
+
+5. Melakukan perubahan pada file `views.py` dengan :
+   - Membuat fungsi `show-main` yang:
+     - memiliki dictionary bernama `context` berisi data yang akan ditampilkan di html yaitu `nama_aplikasi`, `nama`, dan `kelas`
+     - mereturn fungsi `render(request, "main.html", context)` untuk menampilkan `main.html` menggunakan data dari `context` ketika ada `request` dari user.
+
+6. Mendeploy project melalui `adaptable.io`
+   - Melakukan `add,push,commit` changes pada github project
+   - Mendeploy project via adaptable dengan settings sesuai tutorial
+   
