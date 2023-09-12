@@ -1,4 +1,5 @@
 # Samuel Farrel | 2206826614 | PBP-D
+
 ## Link Aplikasi
 #### SF Autoparts
 [Link](https://sfautoparts.adaptable.app/main/) menuju aplikasi
@@ -55,3 +56,6 @@
    - Melakukan `add,push,commit` changes pada github project
    - Mendeploy project via adaptable dengan settings sesuai tutorial
    
+
+## Mengapa kita menggunakan virtual enviroment?
+- 
