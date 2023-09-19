@@ -1,5 +1,7 @@
 # Samuel Farrel | 2206826614 | PBP-D
 
+# TUGAS 2
+
 ## Link Aplikasi
 #### SF Autoparts
 [Link](https://sfautoparts.adaptable.app/main/) menuju aplikasi
@@ -81,3 +83,52 @@
   - **View Model**  : berfungsi sebagai penghubung antara model dan view, mengatur data yang akan ditampilkan pada tampilan
 
 Perbedaan yang terdapat pada ketiga arsitektur teresebut memiliki kelebihan dan kekurangan masing-masing, sehingga pemilihan arsitektur development disesuaikan dengan framework yang digunakan dan aplikasi yang akan dibuat
+
+
+# TUGAS 3
+## Cara Mengimplementasikan Checklist :
+1. Membuat form untuk menginput barang pada aplikasi:
+   - Pada folder aplikasi `main`, saya membuat file `forms.py` yaitu form yang akan menginput item baru dengan data sesuai yang diinput
+     - `forms.py` memiliki class ItemForm sebagai berikut:
+     
+     ```python
+     class ItemForm(ModelForm):
+     class Meta:
+        model = Item
+        fields = ['name', 'amount', 'description','car','price']
+     ```
+
+     - model merupakan bentuk objek yang akan disimpan ketika form disubmit
+     - fields adalah field dari model Item yang akan diminta inputnya pada form  
+
+   -  Membuat file `create_item.html` pada folder `template` di folder app `main`:
+        - File ini akan menampilkan form dalam bentuk tabel, berdasarkan `fields` yang sudah kita tulis pada `forms.py`
+        - `create_item.html` berisi kode berikut:
+     
+        ```html
+         {% extends 'form.html' %} 
+         
+         {% block content %}
+         <h1>Add New Item</h1>
+         
+         <form method="POST">
+             {% csrf_token %}
+             <table>
+                 {{ form.as_table }}
+                 <tr>
+                     <td></td>
+                     <td>
+                         <input type="submit" value="Add Item"/>
+                     </td>
+                 </tr>
+             </table>
+         </form>
+         
+         {% endblock %}
+        ```
+   - 
+   - 
+  
+3. 
+
+     
