@@ -126,9 +126,80 @@ Perbedaan yang terdapat pada ketiga arsitektur teresebut memiliki kelebihan dan 
          
          {% endblock %}
         ```
-   - 
-   - 
-  
-3. 
+   - Membuat function `create_item` pada `views.py` sebagai berikut:
+     ```python
+     def create_item(request):
+       form = ItemForm(request.POST or None)
+   
+       if form.is_valid() and request.method == "POST":
+           form.save()
+           return HttpResponseRedirect(reverse('main:show_main'))
+   
+       context = {'form': form}
+       return render(request, "create_item.html", context)
+     ```
+   - Memodifikasi function `show_main` pada `views.py` dengan menambahkan `'items' : items` pada `context`:
+     - `items = Item.objects.all()` --> items merupakan semua object Item yang ada
 
-     
+2. Menambahkan 5 Fungsi `views` untuk melihat daftar objek:
+   - Membuat funsgi pada `views.py` untuk masing-masing format:
+     - HTML (sudah pernah dibuat sebelumnya, hanya ada beberapa tambahan):
+       ```python
+       def show_main(request):
+          items = Item.objects.all()
+          
+          context = {
+              'nama_aplikasi':'SF Autoparts',
+              'nama': 'Samuel Farrel',
+              'kelas': 'PBP-D',
+              'items' : items
+          }
+      
+          return render(request, "main.html", context)
+       ```
+
+     - XML (menampilkan seluruh item dalam bentuk XML)
+       ```python
+       def show_xml(request):
+          data = Item.objects.all()
+          return HttpResponse(serializers.serialize("xml", data), content_type="application/xml")
+       ```
+       
+     - JSON (menampilkan seluruh item dalam bentuk JSON)
+       ```python
+         def show_json(request):
+             data = Item.objects.all()
+             return HttpResponse(serializers.serialize("json", data), content_type="application/json")
+       ```
+           
+     - XML by ID (menampilkan item based on id dalam bentuk XML)
+       ```python
+       def show_xml_by_id(request, id):
+          data = Item.objects.filter(pk=id)
+          return HttpResponse(serializers.serialize("xml", data), content_type="application/xml")
+       ```
+       
+     - JSON by ID (menampilkan item based on id dalam bentuk JSON)
+       ```python
+       def show_json_by_id(request, id):
+          data = Item.objects.filter(pk=id)
+          return HttpResponse(serializers.serialize("json", data), content_type="application/json")
+       ```
+       
+3. Membuat routing url untuk masing-masing `views`:
+   - Mengimport seluruh `views.py` pada `urls.py` aplikasi `main`
+     ```python
+     from main.views import show_main, create_item, show_xml, show_json, show_xml_by_id, show_json_by_id
+     ```
+   - Menambahkan _path url_ tiap views pada `urlpatterns`
+     ```python
+      ....
+      path('xml/', show_xml, name='show_xml'),
+      path('json/', show_json, name='show_json'),
+      path('xml/<int:id>/', show_xml_by_id, name='show_xml_by_id'),
+      path('json/<int:id>/', show_json_by_id, name='show_json_by_id'),
+      ....
+     ```
+
+## Screenshot Akses URL melalui Postman
+
