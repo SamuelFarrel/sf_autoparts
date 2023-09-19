@@ -1,7 +1,53 @@
-<h1>{{nama_aplikasi}}</h1>
+{% extends 'base.html' %}
+{% load static %}
 
-<h3>Nama: </h3>
-<p>{{nama}}<p>
 
-<h3>Kelas: </h3>
-<p>{{kelas}}<p>
+{% block content %}
+
+    <h1>{{nama_aplikasi}}</h1>
+
+    <h3>Nama: </h3>
+    <p>{{nama}}<p>
+
+    <h3>Kelas: </h3>
+    <p>{{kelas}}<p>
+
+    <br />
+    
+    <h3>Inventory Status: </h3>
+    <p>Kamu menyimpan {{ items|length }} item pada aplikasi ini</p>
+
+    <br />
+
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Amount</th>
+            <th>Description</th>
+            <th>Car</th>
+            <th>Date Made</th>
+            <th>Price</th>
+        </tr>
+    
+        {% comment %} Berikut cara memperlihatkan data produk di bawah baris ini {% endcomment %}
+    
+        {% for item in items %}
+            <tr>
+                <td>{{item.name}}</td>
+                <td>{{item.amount}}</td>
+                <td>{{item.description}}</td>
+                <td>{{item.car}}</td>
+                <td>{{item.production_date}}</td>
+                <td>{{item.price}}</td>
+            </tr>
+        {% endfor %}
+    </table>
+    
+    <br />
+
+    <a href="{% url 'main:create_item' %}">
+        <button>
+            Add New Item
+        </button>
+    </a>
+{% endblock content %}
