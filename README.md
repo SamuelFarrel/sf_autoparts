@@ -86,6 +86,24 @@ Perbedaan yang terdapat pada ketiga arsitektur teresebut memiliki kelebihan dan 
 
 
 # TUGAS 3
+## Perbedaan Form `post` dan `get` pada Django
+- Post :
+  - Data yang dikirim oleh pengguna tidak ditampilkan pada url, sehingga form ini cocok untuk informasi sensitif seperti username atau password karena lebih aman
+  - Tidak memiliki batasan kapasitas data
+  - Form post dikirim secara langsung server, tanpa disimpan pada _cache_ browser
+- Get :
+  - Data dapat dilihat dalam URL (data sebagai parameter URL), sehingga tidak cocok untuk data sensitif karena lebih rentan
+  - Memiliki batas kapasitas data
+  - Dapat di-_cache_ sehingga jika suatu proses terulang, akan lebih cepat prosesnya
+ 
+## Perbedaan Utama XML, JSON, dan HTML
+- **XML** biasanya digunakan untuk proses pengiriman data yang kompleks karena XML dapat memiliki struktur yang sangat kompleks dan spesifik
+- **JSON** sangat cocok untuk proses data yang ringan pada web atau aplikasi karena JSON memiliki sintaks yang mudah untuk dibaca dan kompatibel dengan banyak bahasa
+- **HTML** digunakan untuk membuat dan menampilkan (merender) tampilan web kepada pengguna
+
+## Mengapa JSON Sering Digunakan dalam pertukaran data antara aplikasi web modern?
+Seperti yang sudah saya tuliskan pada jawaban pertanyaan sebelumnya, JSON sangat mudah untuk dibaca manusia dan memiliki kompatibel dengan banyak bahasa pemrograman. JSON juga cocok untuk framework yang digunakan oleh web modern serta platform server. Kemudahan yang diberikan JSON kepada pengguna adalah alasan yang membuat JSON sering digunakan dalam pertukaran data web modern.
+  
 ## Cara Mengimplementasikan Checklist :
 1. Membuat form untuk menginput barang pada aplikasi:
    - Pada folder aplikasi `main`, saya membuat file `forms.py` yaitu form yang akan menginput item baru dengan data sesuai yang diinput
