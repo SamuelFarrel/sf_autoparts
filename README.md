@@ -167,9 +167,9 @@ Perbedaan yang terdapat pada ketiga arsitektur teresebut memiliki kelebihan dan 
        
      - JSON (menampilkan seluruh item dalam bentuk JSON)
        ```python
-         def show_json(request):
-             data = Item.objects.all()
-             return HttpResponse(serializers.serialize("json", data), content_type="application/json")
+       def show_json(request):
+          data = Item.objects.all()
+          return HttpResponse(serializers.serialize("json", data), content_type="application/json")
        ```
            
      - XML by ID (menampilkan item based on id dalam bentuk XML)
@@ -202,4 +202,13 @@ Perbedaan yang terdapat pada ketiga arsitektur teresebut memiliki kelebihan dan 
      ```
 
 ## Screenshot Akses URL melalui Postman
-
+- HTML:
+  <img src="/Others/Tugas 3/messageImage_1695127765769.jpg">
+- XML:
+  <img src="/Others/Tugas 3/messageImage_1695127780661.jpg">
+- JSON:
+  <img src="/Others/Tugas 3/messageImage_1695127803119.jpg">
+- XML by ID:
+  <img src="/Others/Tugas 3/messageImage_1695127790241.jpg">
+- JSON by ID:
+  <img src="/Others/Tugas 3/messageImage_1695127816290.jpg">
