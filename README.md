@@ -205,11 +205,11 @@ Seperti yang sudah saya tuliskan pada jawaban pertanyaan sebelumnya, JSON sangat
        ```
        
 3. Membuat routing url untuk masing-masing `views`:
-   - Mengimport seluruh `views.py` pada `urls.py` aplikasi `main`
+   - Mengimport seluruh `views` pada `urls.py` aplikasi `main`
      ```python
      from main.views import show_main, create_item, show_xml, show_json, show_xml_by_id, show_json_by_id
      ```
-   - Menambahkan _path url_ tiap views pada `urlpatterns`
+   - Menambahkan _path url_ tiap `views` pada `urlpatterns`
      ```python
       ....
       path('xml/', show_xml, name='show_xml'),
