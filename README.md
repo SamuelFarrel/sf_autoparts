@@ -230,3 +230,33 @@ Seperti yang sudah saya tuliskan pada jawaban pertanyaan sebelumnya, JSON sangat
   <img src="/Others/Tugas 3/messageImage_1695127790241.jpg">
 - JSON by ID:
   <img src="/Others/Tugas 3/messageImage_1695127816290.jpg">
+
+
+# TUGAS 4
+## Apa itu Django UserCreationForm?
+- Definisi :
+  Django `UserCreationForm` adalah _built-in form_ yang terdapat pada Django. Form ini dapat digunakan untuk membuat akun pengguna baru dengan field yang diisi berupa `username, password, confirm password`
+- Kelebihan :
+  - Mudah untuk digunakan karena form ini berupa template yang sudah disediakan Django, sehingga kita hanya perlu mengimport `UserCreationForm` dan mengimplementasikannya pada aplikasi kita
+  - Cocok untuk objek `model` default user di django yaitu `User` sehingga kita tidak susah untuk menggunakan objek user yang dibuat oleh `UserCreationForm`
+  - Error handling atau validasi untuk input pengguna saat membuat akun telah dihandle oleh `UserCreationForm` ini, sehingga kita tidak perlu membuat conditional branch lagi
+- Kekurangan :
+  - Personalisasi atau kustomisasi yang minim terhadap tampilan form
+  - Tampilan yang sangat sederhana dan terkesan membosankan untuk dilihat oleh pengguna
+  - Tidak bisa menambah fitur autentikasi dan field tamnbahan, untuk melakukannya kita harus mengkostumisasi `UserCreationForm` dengan membuat class baru tetapi akan memnjadi sulit dan mematahkan alasan utama untuk menggunakan `UserCreationForm`
+ 
+##  Perbedaan antara autentikasi dan otorisasi dalam konteks Django
+- Autentikasi : proses untuk memverifikasi apakah pengguna yang mencoba masuk sesuai dengan orang yang dia claim sebagai dirinya (verifikasi identitas)
+- Otorisasi : pembatasan terhadap apa yang dapat dan tidak dapat dilakukan oleh user yang sudah terautentikasi untuk masuk (access rights)
+- Kedua hal ini penting untuk menjaga aplikasi diakses orang-orang yang tidak seharusnya mengakses dan membuat data/privasi pengguna lebih aman karena tidak semua user dapat mengakses data masing-masing pengguna (dibatasi)
+
+## Apa itu _cookies_ dalam aplikasi web, dan bagaimana Django menggunakan _cookies_ untuk mengelola data sesi pengguna?
+- Cookies adalah data atau text berukuran kecil yang dikirim oleh web dan disimpan di browser pengguna untuk menyimpan informasi mengenai user seperti _activity, preferences, login information_
+
+##  Apakah penggunaan cookies aman secara default dalam pengembangan web, atau apakah ada risiko potensial yang harus diwaspadai?
+- Secara _default_, jika penggunaan _cookies_ digunakan untuk mentimpan data yang bersifat non-rahasia, maka seharusnya _cookies_ cukup aman untuk digunakan dalam aplikasi web
+- Walaupun begitu, masih ada risiko yang mungkin terjadi:
+  - _Unencrypted cookies_ yang digunakan untuk mentimpan data rahasia rentan untuk diretas
+  - Penyisipan script berbahaya ke dalam cookies pengguna
+  - _Session fixation_ yaitu penggunaan cookies session pengguna yang tidak diperbarui untuk attempt login
+  - Penggunaan _cookies_ untuk membypass proses otorisas
