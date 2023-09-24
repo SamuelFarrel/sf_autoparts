@@ -252,6 +252,11 @@ Seperti yang sudah saya tuliskan pada jawaban pertanyaan sebelumnya, JSON sangat
 
 ## Apa itu _cookies_ dalam aplikasi web, dan bagaimana Django menggunakan _cookies_ untuk mengelola data sesi pengguna?
 - Cookies adalah data atau text berukuran kecil yang dikirim oleh web dan disimpan di browser pengguna untuk menyimpan informasi mengenai user seperti _activity, preferences, login information_
+- Jika kita menggunakan _session_ pada Django:
+  - Pertama, data disimpan di server terlebih dahulu.
+  - Django kemudian membuat data tersebut menjadi _session key_ berupa string random sepanjang 32 character
+  - String tersebut kemudian dikirim ke browser sebagai cookie bernama _sessionid_
+  - Pada request berikutnya, browser akan mengirim cookie _sessionid_ kepada server dan digunakan Django untuk mengambil session data dan dapat diakses pada kode kita.
 
 ##  Apakah penggunaan cookies aman secara default dalam pengembangan web, atau apakah ada risiko potensial yang harus diwaspadai?
 - Secara _default_, jika penggunaan _cookies_ digunakan untuk mentimpan data yang bersifat non-rahasia, maka seharusnya _cookies_ cukup aman untuk digunakan dalam aplikasi web
