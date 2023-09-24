@@ -265,3 +265,137 @@ Seperti yang sudah saya tuliskan pada jawaban pertanyaan sebelumnya, JSON sangat
   - Penyisipan script berbahaya ke dalam cookies pengguna
   - _Session fixation_ yaitu penggunaan cookies session pengguna yang tidak diperbarui untuk attempt login
   - Penggunaan _cookies_ untuk membypass proses otorisas
+
+## Cara Mengimplementasikan Checklist :
+1. Mengimplementasikan fungsi registrasi, login, dan logout
+   - Aktifkan virtual enviroment
+   - Fungsi **registrasi**:
+     - Membuat fungsi baru untuk `register` pada file `views.py` dengan memanfaatkan `UserCreationForm` yang sudah diimport dari Django
+     - Fungsi akan meminta calon user untuk mengisi field username, password, dan pengulangan password
+       ```python
+       form = UserCreationForm()
+       if request.method == "POST":
+           form = UserCreationForm(request.POST)
+           if form.is_valid():
+               form.save()
+               messages.success(request, 'Akun anda berhasil dibuat!')
+               return redirect('main:login')
+       context = {'form':form}
+       return render(request, 'register.html', context)
+       ```
+     - Membuat file baru pada folder `template` untuk halaman register (form registrasi ditampilkan sebagai tabel):
+       ```python
+       {% extends 'form.html' %}
+
+         {% block meta %}
+             <title>Register</title>
+         {% endblock meta %}
+         
+         {% block content %}  
+         
+         <div class = "login">
+             
+             <h1>Register</h1>  
+         
+                 <form method="POST" >  
+                     {% csrf_token %}  
+                     <table>  
+                         {{ form.as_table }}  
+                         <tr>  
+                             <td></td>
+                             <td><input type="submit" name="submit" value="Daftar"/></td>  
+                         </tr>  
+                     </table>  
+                 </form>
+         
+             {% if messages %}  
+                 <ul>   
+                     {% for message in messages %}  
+                         <li>{{ message }}</li>  
+                         {% endfor %}  
+                 </ul>   
+             {% endif %}
+         
+         </div>  
+         
+         {% endblock content %}
+       ```
+     - Menambahkan _path url_ untuk fungsi register pada `urls.py`:
+       ```python
+       ...
+       path('register/', register, name='register'),
+       ...
+       ```
+   - Fungsi **login**:
+     - Membuat fungsi baru yaitu `login_user` pada `views.py`
+     - Fungsi ini memanfaatkan method bawaan Django yaitu `authenticate` untuk autentikasi user dan `login`
+       ```python
+       def login_user(request):
+          if request.method == 'POST':
+              username = request.POST.get('username')
+              password = request.POST.get('password')
+              user = authenticate(request, username=username, password=password)
+              if user is not None:
+                  login(request, user)
+                  response = HttpResponseRedirect(reverse("main:show_main")) 
+                  response.set_cookie('last_login', str(datetime.datetime.now()))
+                  return response
+              else:
+                  messages.info(request, 'Maaf, username atau password salah, mohon coba kembali.')
+          context = {}
+          return render(request, 'login.html', context)
+       ```
+     - Membuat file baru `login.html` pada folder `template` untuk halaman login
+       ```python
+       {% extends 'form.html' %}
+
+         {% block meta %}
+             <title>Login</title>
+         {% endblock meta %}
+         
+         {% block content %}
+         
+         <div class = "login">
+         
+             <h1>Login</h1>
+         
+             <form method="POST" action="">
+                 {% csrf_token %}
+                 <table>
+                     <tr>
+                         <td>Username: </td>
+                         <td><input type="text" name="username" placeholder="Username" class="form-control"></td>
+                     </tr>
+                             
+                     <tr>
+                         <td>Password: </td>
+                         <td><input type="password" name="password" placeholder="Password" class="form-control"></td>
+                     </tr>
+         
+                     <tr>
+                         <td></td>
+                         <td><input class="btn login_btn" type="submit" value="Login"></td>
+                     </tr>
+                 </table>
+             </form>
+         
+             {% if messages %}
+                 <ul>
+                     {% for message in messages %}
+                         <li>{{ message }}</li>
+                     {% endfor %}
+                 </ul>
+             {% endif %}     
+                 
+             Belum mempunyai akun? <a href="{% url 'main:register' %}">Register Now</a>
+         
+         </div>
+         
+         {% endblock content %}
+       ```
+     - Menambahkan _path url_ untuk fungsi login pada `urls.py`:
+       ```python
+       ...
+       path('login/', login_user, name='login'),
+       ...
+       ```
