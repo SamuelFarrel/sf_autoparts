@@ -25,6 +25,9 @@
             <th>Car</th>
             <th>Date Made</th>
             <th>Price</th>
+            <th>Tombol Kurangi Stok</th>
+            <th>Tombol Tambah Stok</th>
+            <th>Tombol Hapus</th>
         </tr>
     
         {% comment %} Berikut cara memperlihatkan data produk di bawah baris ini {% endcomment %}
@@ -37,6 +40,24 @@
                 <td>{{item.car}}</td>
                 <td>{{item.production_date}}</td>
                 <td>{{item.price}}</td>
+                <td>
+                    <form method="POST" action="{% url 'main:decrement_item' item.id %}">
+                        {% csrf_token %}
+                        <button type="submit">-</button>
+                    </form>
+                </td>
+                <td>
+                    <form method="POST" action="{% url 'main:increment_item' item.id %}">
+                        {% csrf_token %}
+                        <button type="submit">+</button>
+                    </form>
+                </td>
+                <td>    
+                    <form method="POST" action="{% url 'main:delete_item' item.id %}">
+                        {% csrf_token %}
+                        <button type="submit">Delete</button>
+                    </form>                    
+                </td>
             </tr>
         {% endfor %}
     </table>
