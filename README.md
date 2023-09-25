@@ -337,9 +337,7 @@ Seperti yang sudah saya tuliskan pada jawaban pertanyaan sebelumnya, JSON sangat
               user = authenticate(request, username=username, password=password)
               if user is not None:
                   login(request, user)
-                  response = HttpResponseRedirect(reverse("main:show_main")) 
-                  response.set_cookie('last_login', str(datetime.datetime.now()))
-                  return response
+                  return redirect('main:show_main')
               else:
                   messages.info(request, 'Maaf, username atau password salah, mohon coba kembali.')
           context = {}
@@ -399,3 +397,113 @@ Seperti yang sudah saya tuliskan pada jawaban pertanyaan sebelumnya, JSON sangat
        path('login/', login_user, name='login'),
        ...
        ```
+   - Fungsi **logout**
+     - Membuat fungsi `logout_user` pada `vies.py` yang memanfaatkan method bawaan `logout` dari Django
+     - Fungsi ini akan memproses request logout user dan mengembalikan pengguna pada halaman login
+       ```python
+       def logout_user(request):
+          logout(request)
+          return redirect('main:login')
+       ```
+     - Menambahkan tombol untuk logout pada `main.html` dengan menambahkan kode:
+       ```python
+       <a href="{% url 'main:logout' %}">
+          <button>
+              Logout
+          </button>
+       </a>
+       ```
+     - Menambahkan _path url_ untuk fungsi logout pada `urls.py`:
+       ```python
+       ...
+       path('logout/', logout_user, name='logout'),
+       ...
+       ```
+   - Merestriksi halaman main (ketika web dibuka, pengguna perlu login (autentikasi) terlebih dahulu sebelum masuk ke main page)
+     - Mengimport `login_required` dari Django pada file `views.py`
+     - Menambahkan kode berikut di atas method `show_main`
+       ```python
+       ....
+       @login_required(login_url='/login')
+       def show_main(request):
+       ....
+       ```
+2. Membuat 2 akun pengguna dengan masing-masing akun mempunya 3 _dummy data_ dari model yang sudah dibuat
+   - Akun pertama :
+   - Akun kedua :
+
+3. Menghubungi model `Item` dengan `User`
+   - Mengimport `User` pada file `models.py` di folder `main`
+     ```python
+     from django.contrib.auth.models import User
+     ```
+   - Menambahkan attribute `user` pada model `Item` dengan memanfaatkan `ForeignKey`
+     ```python
+     ...
+     user = models.ForeignKey(User, on_delete=models.CASCADE)
+     ...
+     ```
+   - Mengubah fungsi `create_item` pada `views.py` agar menyimpan informasi user yang membuat item terlebih dahulu, baru menyimpan item pada database
+     ```python
+     def create_item(request):
+       form = ItemForm(request.POST or None)
+   
+       if form.is_valid() and request.method == "POST":
+           item = form.save(commit=False)
+           item.user = request.user
+           item.save()
+           return HttpResponseRedirect(reverse('main:show_main'))
+   
+       context = {'form': form}
+       return render(request, "create_item.html", context)
+     ```
+   - Mengubah fungsi `show_main` pada `views.py` agar memfilter produk sesuai user dan merubah context sesuai user yang login
+     ```python
+     def show_main(request):
+       items = Item.objects.filter(user=request.user)
+       
+       context = {
+           'nama_aplikasi':'SF Autoparts',
+           'nama': request.user.username,
+     ...
+     ```
+   - Lakukan migrasi pada database setelah melakukan perubahan pada model `Item` dan set _default value_ user dengan 1
+3. Menerapkan cookies untuk detail informasi _user_
+   - Mengimport beberapa modul dan method dari Django pada `views.py` di folder `main` yang akan diperlukan
+     ```python
+     import datetime
+     from django.http import HttpResponseRedirect
+     from django.urls import reverse
+     ```
+   - Mengubah kode pada fungsi `login_user` agar ketika login menyimpan informasi `last_login`:
+     ```python
+     ...
+     if user is not None:
+            login(request, user)
+            response = HttpResponseRedirect(reverse("main:show_main")) 
+            response.set_cookie('last_login', str(datetime.datetime.now()))
+            return response
+     ...
+     ```
+   - Menambahkan context untuk `last_login` pada fungsi `show_main` dengan
+     ```python
+     context={
+     ...
+     'last_login':request.COOKIES['last_login'],
+     ...
+     }
+     ```
+   - Mengubah kode pada fungsi `logout_user` agar cookies di-_delete_ ketika melakukan logout
+     ```python
+     def logout_user(request):
+       logout(request)
+       response = HttpResponseRedirect(reverse('main:login'))
+       response.delete_cookie('last_login')
+       return response
+     ```
+   - Menampilkan informasi last login pada `main` page pengguna, dengan menambahkan
+     ```python
+     ...
+     <h5>Sesi terakhir login: {{ last_login }}</h5>
+     ...
+     ```
