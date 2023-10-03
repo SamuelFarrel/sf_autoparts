@@ -430,7 +430,9 @@ Seperti yang sudah saya tuliskan pada jawaban pertanyaan sebelumnya, JSON sangat
        ```
 2. Membuat 2 akun pengguna dengan masing-masing akun mempunya 3 _dummy data_ dari model yang sudah dibuat
    - Akun pertama :
+     <img src="/Others/Tugas 4/User 1.jpg">
    - Akun kedua :
+     <img src="/Others/Tugas 4/User 2.jpg">
 
 3. Menghubungi model `Item` dengan `User`
    - Mengimport `User` pada file `models.py` di folder `main`
