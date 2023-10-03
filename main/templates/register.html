@@ -1,12 +1,100 @@
-{% extends 'form.html' %}
+{% extends 'base.html' %}
 
 {% block meta %}
     <title>Register</title>
+    <style>
+        .gradient-custom {
+          /* fallback for old browsers */
+          background: #2844a1;
+          max-width: 100%; /* Make it full-width on smaller screens */
+          margin: 0 auto; /* Center the container horizontally */
+          padding : 20px;
+          
+          /* Chrome 10-25, Safari 5.1-6 */
+          background: -webkit-linear-gradient(to right, #2844a1, aqua);
+          max-width: 100%; /* Make it full-width on smaller screens */
+          margin: 0 auto; /* Center the container horizontally */
+          padding : 20px;
+          
+          
+          /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+          background: linear-gradient(to right, rgb(40, 68, 161),aqua);
+          max-width: 100%; /* Make it full-width on smaller screens */
+          min-height: 100vh;
+          margin: 0 auto; /* Center the container horizontally */
+          padding : 20px;
+        }
+      </style>
 {% endblock meta %}
 
 {% block content %}  
+<section class="gradient-custom">
+    <div class="px-4 py-5 px-md-5 text-center text-lg-start">
+      <div class="container">
+        <div class="row gx-lg-5 align-items-center">
+          <div class="col-lg-6 mb-5 mb-lg-0">
+            <h1 class="my-5 display-3 fw-bold ls-tight" style="color: #ffffff">
+              Your first step <br />
+              <span class="text" style="color: aqua;">in SF Autoparts</span>
+            </h1>
+            <p style="color: hsl(0, 0%, 100%)">
+                a robust and efficient software solution designed to streamline the management of automobile parts. 
+                SF Autoparts effectively organize, track, and manage their extensive range of automobile components and accessories.
+            </p>
+          </div>
+  
+          <div class="col-lg-6 mb-5 mb-lg-0">
+            <div class="card">
+              <div class="card-body py-5 px-md-5" >
+                <h2 class="fw-bold mb-2 text-uppercase" style="text-align: center; color:#2844a1">Register</h2>
+                <br><br>
+                <form method="POST" >  
+                {% csrf_token %}  
+                <div class="row">
+                    <label class="form-label" for="form3Example2" style="font-weight: bold;">Your desired account username :</label>
+                    <br>
+                    <br>
+                    <div class="col-md-6 mb-4">
+                        <div class="form-outline">
+                        <input type="text" name="username" class="form-control" placeholder="Username"/>
+                        </div>
+                    </div>
+                    </div>
+                    <br>
+    
+                    <!-- Password input -->
+                    <label class="form-label" for="form3Example2" style="font-weight: bold;">Password for your account :</label>
+                    <label class="form-label" for="form3Example2" style="color: rgb(166, 166, 166);">Use an uncommon one and don't be too similar with your private information. Can't be entirely numeric and contains at least 8 character</label>
+                    <br>
+                    <br>
+                    <div class="form-outline mb-4">
+                    <input type="password" name="password1" class="form-control" placeholder="Password" />
+                    </div>
 
-<div class = "login">
+                    <!-- Password input -->
+                    <div class="form-outline mb-4">
+                    <input type="password" name="password2" class="form-control" placeholder="Repeat your password" />
+                    </div>
+
+                    {% if messages %}
+                      {% for message in messages %}
+                          <p>{{ message }}</p>
+                      {% endfor %}
+                    {% endif %}    
+    
+                    <!-- Submit button -->
+                    <button type="submit" name="submit" value="Daftar" class="btn btn-primary btn-block mb-4" style="background-color: #2844a1 ;color:#ffffff">Register</button>  
+
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+<!-- {% comment %} <div class = "login">
     
     <h1>Register</h1>  
 
@@ -29,6 +117,6 @@
         </ul>   
     {% endif %}
 
-</div>  
+</div>   {% endcomment %} -->
 
 {% endblock content %}

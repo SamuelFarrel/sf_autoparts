@@ -1,23 +1,65 @@
 {% extends 'base.html' %}
 
+{% block meta %}
+    <title>Register</title>
+    <style>
+        .gradient-custom {
+          /* fallback for old browsers */
+        background: #2844a1;
+        max-width: 100%; /* Make it full-width on smaller screens */
+        margin: 0 auto; /* Center the container horizontally */
+        
+        /* Chrome 10-25, Safari 5.1-6 */
+        background: -webkit-linear-gradient(to right, #2844a1,rgb(189, 229, 255));
+        max-width: 100%; /* Make it full-width on smaller screens */
+        margin: 0 auto; /* Center the container horizontally */
+        
+        /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+        background: linear-gradient(to right, rgb(40, 68, 161),rgb(189, 229, 255));
+        color: white;
+        max-width: 100%; /* Make it full-width on smaller screens */
+        margin: 0 auto; /* Center the container horizontally */
+        padding : 20px;
+        }
+      </style>
+{% endblock meta %}
+
 {% block content %}
+<nav class="navbar" style="background-color: rgb(208, 236, 255)">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#" style="font-weight: bold;">SF Autoparts</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation" >
+          <span class="navbar-toggler-icon" style="color: white;"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+          <div class="navbar-nav">
+            <a class="nav-link" href="{% url 'main:create_item' %}">Add Item</a>
+            <a class="nav-link" href="{% url 'main:logout' %}">Logout</a>
+            <br>
+            <span class="navbar-text" style="font-weight: bolder;">Sesi terakhir login: {{ last_login }}</span>
+          </div>
+    </div>
+</nav>
 
-    <h1>{{nama_aplikasi}}</h1>
-
-    <h3>Nama: </h3>
-    <p>{{nama}}<p>
-
-    <h3>Kelas: </h3>
-    <p>{{kelas}}<p>
+<section class="gradient-custom">
+    <br>
+    <h2>Welcome, </h2>
+    <h3>{{nama}}</h3>
+    <h3>{{kelas}}</h3>
 
     <br />
     
     <h3>Inventory Status: </h3>
     <p>Kamu menyimpan {{ items|length }} item pada aplikasi ini</p>
 
+    <br>
+    <a href="{% url 'main:create_item' %}">
+        <button href="{% url 'main:create_item' %}" class="btn" style="background-color: rgb(123, 215, 215) ;color:#ffffff">Tambahkan Produk Baru</button>
+    </a>
+    <br><br>
     <br />
 
-    <table>
+    <!-- <table>
         <tr>
             <th>Name</th>
             <th>Amount</th>
@@ -60,9 +102,40 @@
                 </td>
             </tr>
         {% endfor %}
-    </table>
+    </table> -->
+
+    <div class="row">
+        {% for item in items %}
+            <div class="col-md-4 mb-4">
+                <div class="card" {% if forloop.last %}style="background-color: rgb(189, 229, 255)"{% endif %}>
+                    <div class="card-body">
+                        <h5 class="card-title">{{ item.name }}</h5>
+                        <p class="card-text">
+                            <strong>Amount:</strong> {{ item.amount }}<br>
+                            <strong>Description:</strong> {{ item.description }}<br>
+                            <strong>Car:</strong> {{ item.car }}<br>
+                            <strong>Date Made:</strong> {{ item.production_date }}<br>
+                            <strong>Price:</strong> {{ item.price }}<br>
+                        </p>
+                        <form method="POST" action="{% url 'main:decrement_item' item.id %}">
+                            {% csrf_token %}
+                            <button type="submit" class="btn" style="margin: 5px; background-color: #2844a1 ;color:#ffffff">Kurangi Stok</button>
+                        </form>
+                        <form method="POST" action="{% url 'main:increment_item' item.id %}">
+                            {% csrf_token %}
+                            <button type="submit" class="btn" style="margin: 5px; background-color: #2844a1 ;color:#ffffff">Tambah Stok</button>
+                        </form>
+                        <form method="POST" action="{% url 'main:delete_item' item.id %}">
+                            {% csrf_token %}
+                            <button type="submit" class="btn" style="margin: 5px; background-color: #a12828 ;color:#ffffff">Hapus</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
     
-    <br />
+    <!-- \<br />
     <h5>Sesi terakhir login: {{ last_login }}</h5>
 
     <a href="{% url 'main:create_item' %}">
@@ -75,5 +148,7 @@
         <button>
             Logout
         </button>
-    </a>
+    </a> -->
+
+</section>
 {% endblock content %}
