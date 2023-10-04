@@ -920,7 +920,7 @@ Seperti yang sudah saya tuliskan pada jawaban pertanyaan sebelumnya, JSON sangat
 3. Menambahkan navbar pada aplikasi:
    - Menambahkan kode berikut pada bagian atas block content template yang memiliki navbar
      ```html
-     <nav class="navbar" style="background-color: rgb(208, 236, 255)">
+     <nav class="navbar" style="background-color: rgb(208, 236, 255)"> 
           <div class="container-fluid">
               <a class="navbar-brand" href="#" style="font-weight: bold;">SF Autoparts</a>
               <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation" >
