@@ -509,3 +509,430 @@ Seperti yang sudah saya tuliskan pada jawaban pertanyaan sebelumnya, JSON sangat
      <h5>Sesi terakhir login: {{ last_login }}</h5>
      ...
      ```
+
+# TUGAS 5
+## Manfaat dari setiap element selector dan kapan waktu yang tepat untuk menggunakannya
+- Element Selector (penulisan tidak diawali apapun):
+  - Untuk memilih semua elemen dengan tag yang sudah dipilih (contoh memilih semua elemen `h1`)
+  - Cocok digunakan jika kita ingin mengkostumisasi elemen yang memiliki tag yang sama dengan gaya yang sama
+
+- Class Selector (penulisan diawali .) :
+  - Untuk memilih semua elemen dengan class yang sama sesuai yang dipilih (contoh memilih semua elemen `p` yang memiliki class `highlighted`)
+  - Cocok digunakan untuk memberikan style yang sama pada beberapa elemen dengan class yang sama
+
+- Id Selector (penulisan diawali .) :
+  - Untuk memilih elemen dengan ID yang dipilih, ID bersifat unik dalam satu page sehingga hanya 1 elemen yang dipilih
+  - Cocok digunakan jika ingin memberikan suatu elemen kostumisasi yang berbeda dari yang lain (style khusus)
+
+- Universal selector (penulisan dengan *):
+  - Untuk memilih seluruh elemen yang ada pada HTML
+  - Digunakan secara lebih berhati-hati karena dapat mempengaruhi seluruh halaman
+ 
+## Penjelasan HTML5 Tag
+- `<header>` : Digunakan untuk mendefinisikan header atau bagian atas dari sebuah elemen HTML, sering digunakan untuk menyertakan judul, logo, dan navigasi situs
+- `<nav>` : Digunakan untuk menandakan bagian navigasi dari sebuah dokumen, sering digunakan untuk membuat menu atau daftar tautan ke halaman-halaman lain dalam situs
+- `<aside>` : Digunakan untuk mengelompokkan konten yang berkaitan dengan konten utama, tetapi dapat dianggap sebagai konten sampingan atau tambahan (semacam side box)
+- `<section>` : Digunakan untuk mengelompokkan konten dalam sebuah dokumen HTML. Biasanya digunakan untuk mengelompokkan konten yang terkait dalam sebuah bagian halaman
+- `<article>` : Digunakan untuk menunjukkan bahwa konten tersebut adalah artikel yang berdiri sendiri
+- `<footer>`: Digunakan untuk mendefinisikan footer atau bagian bawah dari sebuah elemen HTML
+- `<video>` : Digunakan untuk memasukkan pemutaran video dalam halaman web.
+- `<audio>` : Digunakan untuk memasukkan pemutaran audio dalam halaman web.
+
+## Perbedaan Margin dan Padding
+- Margin :
+  - Margin merupakan ruang yang ada di bagian luar elemen, atau jarak antara suatu elemen dengan elemen-elemen di sekitarnya
+  - Dengan begitu, margin juga mempengaruhi tata letak elemen di sekitarnya
+  - Margin berupa fill kosong (tidak mempunyai warna yang dapat dilihat)
+    
+- Padding :
+  - Padding merupakan ruang di dalam elemen, atau jarak antara batas elemen (outline) dengan konten di dalamnya
+  - Padding hanya memengaruhi tata letak elemen itu sendiri dan kontennya
+  - Padding memiliki fill yang dapat diberi warna
+ 
+## Perbedaan Tailwind dan Bootstrap
+- Tailwind :
+  - Komponen tidak siap pakai, tampilan page dan styling kita buat dari utility class yang telah disediakan oleh Tailwind
+  - Tailwind menghasilkan file yang lebih kecil karena hanya menggunakan class yang dibutuhkan
+  - Tailwind memiliki kustomisasi yang lebih besar dan fleksibel
+  - Cocok digunakan jika ingin membuat tampilan web yang memiliki tampilan sesuai keinginan dan memiliki waktu lebih banyak untuk developnya
+- Bootstrap :
+  - Menyediakan komponen siap pakai yang dapat kita gunakan dan kustomisasi lebih lanjut
+  - Ukuran file bootstrap cenderung lebih besar karena banyaknya komponen yang disediakan
+  - Tampilan template bootstrap sudah cukup baik dan masih dapat dikostumisasi lebih lanjut
+  - Cocok digunakan jika kita ingin membuat tampilan web dengan cepat dan konsisten dengan template bawaan
+ 
+## Cara implementasi checklist
+1. Menginstall bootstrap pada aplikasi
+   - Menambahkan kode berikut pada template `base.html` di `root` folder yang nantinya akan kita extend untuk template aplikasi kita
+     ```html
+     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha384-KyZXEAg3QhqLMpG8r+J4jsl5c9zdLKaUk5Ae5f5b1bw6AUn5f5v8FZJoMxm6f5cH1" crossorigin="anonymous"></script>
+     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
+     ```
+2. Mengkostumisasi template pada aplikasi `main` dengan mengganti dan menambahkan elemen bootstrap dan membuatnya berfungsi
+   - `create_item.html` dikostumisasi dengan membuat form dengan tampilan yang lebih menarik menggunakan card dan background gradient
+     ```html
+     {% extends 'base.html' %}
+      {% block meta %}
+      <style>
+          .gradient-custom {
+              /* fallback for old browsers */
+            background: #2844a1;
+            max-width: 100%; /* Make it full-width on smaller screens */
+            margin: 0 auto; /* Center the container horizontally */
+            
+            /* Chrome 10-25, Safari 5.1-6 */
+            background: -webkit-linear-gradient(to right, #2844a1,rgb(189, 229, 255));
+            max-width: 100%; /* Make it full-width on smaller screens */
+            margin: 0 auto; /* Center the container horizontally */
+            
+            /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+            background: linear-gradient(to right, rgb(40, 68, 161),rgb(189, 229, 255));
+            color: white;
+            max-width: 100%; /* Make it full-width on smaller screens */
+            margin: 0 auto; /* Center the container horizontally */
+            padding : 20px;
+            min-height: 100vh;
+          }
+      </style>
+      {% endblock meta %}
+      
+      {% block content %}
+      <section class="gradient-custom">
+          <div class="px-4 py-5 px-md-5 text-center text-lg-start">
+            <div class="container">
+              <div class="row gx-lg-5 align-items-center">
+                <div class="col-lg-6 mx-auto mb-5 mb-lg-0">
+                  <div class="card">
+                    <div class="card-body py-5 px-md-5" >
+                      <h2 class="fw-bold mb-2 text-uppercase" style="text-align: center; color:#2844a1">Add New Product</h2>
+                      <br><br>
+                      <form method="POST" >  
+                      {% csrf_token %}  
+                      <div class="row">
+          
+                          <!-- Name input -->
+                          <label class="form-label" for="form3Example2" style="font-weight: bold;">Nama produk anda :</label>
+                          <br>
+                          <div class="form-outline mb-4">
+                          <input type="text" name="name" class="form-control" placeholder="Name" />
+                          </div>
+      
+                          <!-- Amount input -->
+                          <label class="form-label" for="form3Example2" style="font-weight: bold;">Jumlah produk yang ingin dimasukkan :</label>
+                          <br>
+                          <div class="form-outline mb-4">
+                          <input type="text" name="amount" class="form-control" placeholder="Amount" />
+                          </div>
+      
+                          <!-- Description input -->
+                          <label class="form-label" for="form3Example2" style="font-weight: bold;">Deskripsi produk anda :</label>
+                          <label class="form-label" for="form3Example2" style="color: rgb(166, 166, 166);">Maksimal 255 character</label>
+                          <br>
+                          <div class="form-outline mb-4">
+                          <input type="text" name="description" class="form-control" placeholder="Description" />
+                          </div>
+      
+                          <!-- Car input -->
+                          <label class="form-label" for="form3Example2" style="font-weight: bold;">Mobil yang cocok untuk produk anda :</label>
+                          <br>
+                          <div class="form-outline mb-4">
+                          <input type="text" name="car" class="form-control" placeholder="Car" />
+                          </div>
+      
+                          <!-- Price input -->
+                          <label class="form-label" for="form3Example2" style="font-weight: bold;">Harga produk :</label>
+                          <br>
+                          <div class="form-outline mb-4">
+                          <input type="text" name="price" class="form-control" placeholder="Price" />
+                          </div>
+      
+          
+                          <!-- Submit button -->
+                          <button type="submit" name="submit" value="Add Item" class="btn btn-primary btn-block mb-4" style="background-color: #2844a1 ;color:#ffffff">Add Item</button>  
+      
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+      </section>
+      {% endblock %}
+     ```
+   - `login.html` dikostumisasi dengan membuat form dengan tampilan yang lebih menarik dan background gradient
+     ```html
+     {% extends 'base.html' %}
+
+      {% block meta %}
+          <title>Login</title>
+          <style>
+            .gradient-custom {
+              /* fallback for old browsers */
+              background: #2844a1;
+              
+              /* Chrome 10-25, Safari 5.1-6 */
+              background: -webkit-linear-gradient(to right, #2844a1, aqua);
+              
+              
+              /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+              background: linear-gradient(to right, rgb(40, 68, 161),aqua);
+              min-height: 100vh;
+              }
+              
+          </style>
+            {% endblock meta %}
+            
+            {% block content %}
+            
+            <div class = "login">
+              <section class="vh-100 gradient-custom">
+                <div class="container py-5 h-100">
+                  <div class="row d-flex justify-content-center align-items-center h-100">
+                    <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+                      <div class="card" style="background-color: #ffffff; border-radius: 1rem; color: #2844a1;">
+                        <div class="card-body p-5 text-center">
+                          <div class="mb-md-5 mt-md-4 pb-5">
+                            <div>
+                              <form method="POST" action="">
+                                {% csrf_token %}
+                                <h2 class="fw-bold mb-2 text-uppercase">Login</h2>
+                                <p class="text-50 mb-5" style="color: black;">Silahkan masukkan username dan password anda!</p>
+                  
+                                <div class="form-outline form-white mb-4">
+                                  <input type="text" name="username" placeholder="Username" class="form-control" />
+                                </div>
+                  
+                                <div class="form-outline form-white mb-4">
+                                  <input type="password" name="password" placeholder="Password" class="form-control"/>
+                                </div>
+            
+                                {% if messages %}
+                                  {% for message in messages %}
+                                      <p>{{ message }}</p>
+                                  {% endfor %}
+                                {% endif %}    
+                  
+                                <button class="btn btn-lg px-5" type="submit" value="Login" style="outline: #2844a1; ">Login<a ></button>
+                  
+                              </form>
+                      
+                          </div>
+                        </div>
+              
+                          <div>
+                            <p class="mb-0">Belum mempunyai akun? <a href="{% url 'main:register' %}" class="text-aqua-50 fw-bold">Buat Akun</a>
+                            </p>
+                          </div>
+              
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </section>
+            </div>
+            
+         {% endblock content %}
+     ```
+   - `main.html` dikostumisasi agar produk-produk ditampilkan dalam bentuk card dengan tombol di dalamnya dan tampilan dibuat lebih clean
+     ```html
+     {% extends 'base.html' %}
+
+      {% block meta %}
+          <title>Register</title>
+          <style>
+              .gradient-custom {
+                /* fallback for old browsers */
+              background: #2844a1;
+              max-width: 100%; /* Make it full-width on smaller screens */
+              margin: 0 auto; /* Center the container horizontally */
+              
+              /* Chrome 10-25, Safari 5.1-6 */
+              background: -webkit-linear-gradient(to right, #2844a1,rgb(189, 229, 255));
+              max-width: 100%; /* Make it full-width on smaller screens */
+              margin: 0 auto; /* Center the container horizontally */
+              
+              /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+              background: linear-gradient(to right, rgb(40, 68, 161),rgb(189, 229, 255));
+              color: white;
+              max-width: 100%; /* Make it full-width on smaller screens */
+              margin: 0 auto; /* Center the container horizontally */
+              padding : 20px;
+              min-height: 100vh;
+              }
+            </style>
+      {% endblock meta %}
+      
+      {% block content %}
+      <section class="gradient-custom">
+          <br>
+          <h2>Welcome, </h2>
+          <h3>{{nama}}</h3>
+          <h3>{{kelas}}</h3>
+      
+          <br />
+          
+          <h3>Inventory Status: </h3>
+          <p>Kamu menyimpan {{ items|length }} item pada aplikasi ini</p>
+      
+          <br>
+          <a href="{% url 'main:create_item' %}">
+              <button href="{% url 'main:create_item' %}" class="btn" style="background-color: rgb(123, 215, 215) ;color:#ffffff">Tambahkan Produk Baru</button>
+          </a>
+          <br><br>
+          <br />
+      
+          <div class="row">
+              {% for item in items %}
+                  <div class="col-md-4 mb-4">
+                      <div class="card" {% if forloop.last %}style="background-color: rgb(189, 229, 255)"{% endif %}>
+                          <div class="card-body">
+                              <h5 class="card-title">{{ item.name }}</h5>
+                              <p class="card-text">
+                                  <strong>Amount:</strong> {{ item.amount }}<br>
+                                  <strong>Description:</strong> {{ item.description }}<br>
+                                  <strong>Car:</strong> {{ item.car }}<br>
+                                  <strong>Date Made:</strong> {{ item.production_date }}<br>
+                                  <strong>Price:</strong> {{ item.price }}<br>
+                              </p>
+                              <form method="POST" action="{% url 'main:decrement_item' item.id %}">
+                                  {% csrf_token %}
+                                  <button type="submit" class="btn" style="margin: 5px; background-color: #2844a1 ;color:#ffffff">Kurangi Stok</button>
+                              </form>
+                              <form method="POST" action="{% url 'main:increment_item' item.id %}">
+                                  {% csrf_token %}
+                                  <button type="submit" class="btn" style="margin: 5px; background-color: #2844a1 ;color:#ffffff">Tambah Stok</button>
+                              </form>
+                              <form method="POST" action="{% url 'main:delete_item' item.id %}">
+                                  {% csrf_token %}
+                                  <button type="submit" class="btn" style="margin: 5px; background-color: #a12828 ;color:#ffffff">Hapus</button>
+                              </form>
+                          </div>
+                      </div>
+                  </div>
+              {% endfor %}
+          </div>
+      </section>
+      {% endblock content %}
+     ```
+   - `register.html`dikostumisasi dengan membuat form dengan tampilan yang lebih menarik menggunakan card dan background gradient dengan beberapa elemen tambahan
+     ```html
+     {% extends 'base.html' %}
+
+      {% block meta %}
+          <title>Register</title>
+          <style>
+              .gradient-custom {
+                /* fallback for old browsers */
+                background: #2844a1;
+                max-width: 100%; /* Make it full-width on smaller screens */
+                margin: 0 auto; /* Center the container horizontally */
+                padding : 20px;
+                
+                /* Chrome 10-25, Safari 5.1-6 */
+                background: -webkit-linear-gradient(to right, #2844a1, aqua);
+                max-width: 100%; /* Make it full-width on smaller screens */
+                margin: 0 auto; /* Center the container horizontally */
+                padding : 20px;
+                
+                
+                /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+                background: linear-gradient(to right, rgb(40, 68, 161),aqua);
+                max-width: 100%; /* Make it full-width on smaller screens */
+                min-height: 100vh;
+                margin: 0 auto; /* Center the container horizontally */
+                padding : 20px;
+              }
+            </style>
+      {% endblock meta %}
+      
+      {% block content %}  
+      <section class="gradient-custom">
+          <div class="px-4 py-5 px-md-5 text-center text-lg-start">
+            <div class="container">
+              <div class="row gx-lg-5 align-items-center">
+                <div class="col-lg-6 mb-5 mb-lg-0">
+                  <h1 class="my-5 display-3 fw-bold ls-tight" style="color: #ffffff">
+                    Your first step <br />
+                    <span class="text" style="color: aqua;">in SF Autoparts</span>
+                  </h1>
+                  <p style="color: hsl(0, 0%, 100%)">
+                      a robust and efficient software solution designed to streamline the management of automobile parts. 
+                      SF Autoparts effectively organize, track, and manage their extensive range of automobile components and accessories.
+                  </p>
+                </div>
+        
+                <div class="col-lg-6 mb-5 mb-lg-0">
+                  <div class="card">
+                    <div class="card-body py-5 px-md-5" >
+                      <h2 class="fw-bold mb-2 text-uppercase" style="text-align: center; color:#2844a1">Register</h2>
+                      <br><br>
+                      <form method="POST" >  
+                      {% csrf_token %}  
+                      <div class="row">
+                          <label class="form-label" for="form3Example2" style="font-weight: bold;">Your desired account username :</label>
+                          <br>
+                          <br>
+                          <div class="col-md-6 mb-4">
+                              <div class="form-outline">
+                              <input type="text" name="username" class="form-control" placeholder="Username"/>
+                              </div>
+                          </div>
+                          </div>
+                          <br>
+          
+                          <!-- Password input -->
+                          <label class="form-label" for="form3Example2" style="font-weight: bold;">Password for your account :</label>
+                          <label class="form-label" for="form3Example2" style="color: rgb(166, 166, 166);">Use an uncommon one and don't be too similar with your private information. Can't be entirely numeric and contains at least 8 character</label>
+                          <br>
+                          <br>
+                          <div class="form-outline mb-4">
+                          <input type="password" name="password1" class="form-control" placeholder="Password" />
+                          </div>
+      
+                          <!-- Password input -->
+                          <div class="form-outline mb-4">
+                          <input type="password" name="password2" class="form-control" placeholder="Repeat your password" />
+                          </div>
+      
+                          {% if messages %}
+                            {% for message in messages %}
+                                <p>{{ message }}</p>
+                            {% endfor %}
+                          {% endif %}    
+          
+                          <!-- Submit button -->
+                          <button type="submit" name="submit" value="Daftar" class="btn btn-primary btn-block mb-4" style="background-color: #2844a1 ;color:#ffffff">Register</button>  
+      
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>      
+      {% endblock content %}
+     ```
+3. Menambahkan navbar pada aplikasi:
+   - Menambahkan kode berikut pada bagian atas block content template yang memiliki navbar
+     ```html
+     <nav class="navbar" style="background-color: rgb(208, 236, 255)">
+          <div class="container-fluid">
+              <a class="navbar-brand" href="#" style="font-weight: bold;">SF Autoparts</a>
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation" >
+                <span class="navbar-toggler-icon" style="color: white;"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div class="navbar-nav">
+                  <a class="nav-link" href="{% url 'main:create_item' %}">Add Item</a>
+                  <a class="nav-link" href="{% url 'main:logout' %}">Logout</a>
+                  <br>
+                  <span class="navbar-text" style="font-weight: bolder;">Sesi terakhir login: {{ last_login }}</span>
+                </div>
+          </div>
+      </nav>
+     ```
