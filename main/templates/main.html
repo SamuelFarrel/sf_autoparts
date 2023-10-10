@@ -52,6 +52,7 @@
     
     <h3>Inventory Status: </h3>
     <p>Kamu menyimpan {{ items|length }} item pada aplikasi ini</p>
+    <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#exampleModal" style="margin: 5px; background-color: #2844a1 ;color:#ffffff">Add Produk</button>
 
     <br>
     <a href="{% url 'main:create_item' %}">
@@ -60,52 +61,7 @@
     <br><br>
     <br />
 
-    <!-- <table>
-        <tr>
-            <th>Name</th>
-            <th>Amount</th>
-            <th>Description</th>
-            <th>Car</th>
-            <th>Date Made</th>
-            <th>Price</th>
-            <th>Tombol Kurangi Stok</th>
-            <th>Tombol Tambah Stok</th>
-            <th>Tombol Hapus</th>
-        </tr>
-    
-        {% comment %} Berikut cara memperlihatkan data produk di bawah baris ini {% endcomment %}
-    
-        {% for item in items %}
-            <tr>
-                <td>{{item.name}}</td>
-                <td>{{item.amount}}</td>
-                <td>{{item.description}}</td>
-                <td>{{item.car}}</td>
-                <td>{{item.production_date}}</td>
-                <td>{{item.price}}</td>
-                <td>
-                    <form method="POST" action="{% url 'main:decrement_item' item.id %}">
-                        {% csrf_token %}
-                        <button type="submit">-</button>
-                    </form>
-                </td>
-                <td>
-                    <form method="POST" action="{% url 'main:increment_item' item.id %}">
-                        {% csrf_token %}
-                        <button type="submit">+</button>
-                    </form>
-                </td>
-                <td>    
-                    <form method="POST" action="{% url 'main:delete_item' item.id %}">
-                        {% csrf_token %}
-                        <button type="submit">Delete</button>
-                    </form>                    
-                </td>
-            </tr>
-        {% endfor %}
-    </table> -->
-
-    <div class="row">
+    <div class="row" id="row_card_items">
         {% for item in items %}
             <div class="col-md-4 mb-4">
                 <div class="card" {% if forloop.last %}style="background-color: rgb(189, 229, 255)"{% endif %}>
@@ -135,21 +91,66 @@
             </div>
         {% endfor %}
     </div>
-    
-    <!-- \<br />
-    <h5>Sesi terakhir login: {{ last_login }}</h5>
 
-    <a href="{% url 'main:create_item' %}">
-        <button>
-            Add New Item
-        </button>
-    </a>
-
-    <a href="{% url 'main:logout' %}">
-        <button>
-            Logout
-        </button>
-    </a> -->
-
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Add New Product</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="form" onsubmit="return false;">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label for="name" class="col-form-label">Name:</label>
+                            <input type="text" class="form-control" id="name" name="name"></input>
+                        </div>
+                        <div class="mb-3">
+                            <label for="price" class="col-form-label">Price:</label>
+                            <input type="number" class="form-control" id="price" name="price"></input>
+                        </div>
+                        <div class="mb-3">
+                            <label for="description" class="col-form-label">Description:</label>
+                            <textarea class="form-control" id="description" name="description"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="button_add" data-bs-dismiss="modal">Add Product</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </section>
+<script>
+    async function getProducts() {
+        return fetch("{% url 'main:get_product_json' %}").then((res) => res.json())
+    }
+
+    async function refreshProducts() {
+        document.getElementById("product_table").innerHTML = ""
+        const products = await getProducts()
+        let htmlString = `<tr>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Description</th>
+            <th>Date Added</th>
+        </tr>`
+        products.forEach((item) => {
+            htmlString += `\n<tr>
+            <td>${item.fields.name}</td>
+            <td>${item.fields.price}</td>
+            <td>${item.fields.description}</td>
+            <td>${item.fields.date_added}</td>
+        </tr>` 
+        })
+        
+        document.getElementById("product_table").innerHTML = htmlString
+    }
+
+    refreshProducts()
+</script>
+
 {% endblock content %}
