@@ -26,6 +26,46 @@
 {% endblock meta %}
 
 {% block content %}
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Add New Product</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="form" onsubmit="return false;">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="name" class="col-form-label">Name:</label>
+                        <input type="text" class="form-control" id="name" name="name"></input>
+                    </div>
+                    <div class="mb-3">
+                        <label for="amount" class="col-form-label">Amount:</label>
+                        <input type="number" class="form-control" id="amount" name="amount"></input>
+                    </div>
+                    <div class="mb-3">
+                        <label for="description" class="col-form-label">Description:</label>
+                        <textarea class="form-control" id="description" name="description"></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="car" class="col-form-label">Car:</label>
+                        <input class="form-control" id="car" name="car"></input>
+                    </div>
+                    <div class="mb-3">
+                        <label for="price" class="col-form-label">Price:</label>
+                        <input class="form-control" id="price" name="price"></input>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="button_add" data-bs-dismiss="modal">Add Product</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <nav class="navbar" style="background-color: rgb(208, 236, 255)">
     <div class="container-fluid">
         <a class="navbar-brand" href="#" style="font-weight: bold;">SF Autoparts</a>
@@ -35,6 +75,7 @@
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
           <div class="navbar-nav">
             <a class="nav-link" href="{% url 'main:create_item' %}">Add Item</a>
+            <a class="nav-link" data-bs-toggle="modal" data-bs-target="#exampleModal">Add Item by AJAX</a>
             <a class="nav-link" href="{% url 'main:logout' %}">Logout</a>
             <br>
             <span class="navbar-text" style="font-weight: bolder;">Sesi terakhir login: {{ last_login }}</span>
@@ -52,17 +93,17 @@
     
     <h3>Inventory Status: </h3>
     <p>Kamu menyimpan {{ items|length }} item pada aplikasi ini</p>
-    <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#exampleModal" style="margin: 5px; background-color: #2844a1 ;color:#ffffff">Add Produk</button>
 
     <br>
     <a href="{% url 'main:create_item' %}">
-        <button href="{% url 'main:create_item' %}" class="btn" style="background-color: rgb(123, 215, 215) ;color:#ffffff">Tambahkan Produk Baru</button>
+        <button type="button" class="btn" style="background-color: rgb(123, 215, 215) ;color:#ffffff">Tambahkan Produk Baru</button>
     </a>
+    <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#exampleModal" style="background-color: rgb(123, 215, 215) ;color:#ffffff">Tambahkan Produk Baru (AJAX)</button>
     <br><br>
     <br />
 
     <div class="row" id="row_card_items">
-        {% for item in items %}
+        <!-- {% for item in items %}
             <div class="col-md-4 mb-4">
                 <div class="card" {% if forloop.last %}style="background-color: rgb(189, 229, 255)"{% endif %}>
                     <div class="card-body">
@@ -89,68 +130,55 @@
                     </div>
                 </div>
             </div>
-        {% endfor %}
-    </div>
-
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Add New Product</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form id="form" onsubmit="return false;">
-                        {% csrf_token %}
-                        <div class="mb-3">
-                            <label for="name" class="col-form-label">Name:</label>
-                            <input type="text" class="form-control" id="name" name="name"></input>
-                        </div>
-                        <div class="mb-3">
-                            <label for="price" class="col-form-label">Price:</label>
-                            <input type="number" class="form-control" id="price" name="price"></input>
-                        </div>
-                        <div class="mb-3">
-                            <label for="description" class="col-form-label">Description:</label>
-                            <textarea class="form-control" id="description" name="description"></textarea>
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" id="button_add" data-bs-dismiss="modal">Add Product</button>
-                </div>
-            </div>
-        </div>
+        {% endfor %} -->
     </div>
 </section>
 <script>
-    async function getProducts() {
+    async function getItems() {
         return fetch("{% url 'main:get_product_json' %}").then((res) => res.json())
     }
 
-    async function refreshProducts() {
-        document.getElementById("product_table").innerHTML = ""
-        const products = await getProducts()
-        let htmlString = `<tr>
-            <th>Name</th>
-            <th>Price</th>
-            <th>Description</th>
-            <th>Date Added</th>
-        </tr>`
-        products.forEach((item) => {
-            htmlString += `\n<tr>
-            <td>${item.fields.name}</td>
-            <td>${item.fields.price}</td>
-            <td>${item.fields.description}</td>
-            <td>${item.fields.date_added}</td>
-        </tr>` 
-        })
+    async function refreshItems() {
+        document.getElementById("row_card_items").innerHTML = ""
+        const items= await getItems()
+        let htmlString = ``;
+        items.forEach((item, index) => {
+            const cardBackground = index === items.length - 1 ? 'background-color: rgb(189, 229, 255)' : '';
+            htmlString += `<div class="col-md-4 mb-4">
+                <div class="card" style="${cardBackground}">
+                    <div class="card-body">
+                        <h5 class="card-title"> ${item.fields.name}</h5>
+                        <p class="card-text">
+                            <strong>Amount:</strong> ${item.fields.amount}<br>
+                            <strong>Description:</strong> ${item.fields.description}<br>
+                            <strong>Car:</strong> ${item.fields.car}<br>
+                            <strong>Date Made:</strong> ${item.fields.production_date}<br>
+                            <strong>Price:</strong> ${item.fields.price}<br>
+                        </p>
+                        <a href="decrement/${item.pk}" class="btn" style="margin: 5px; background-color: #2844a1; color: #ffffff">Kurangi Stok</a>
+                        <a href="increment/${item.pk}" class="btn" style="margin: 5px; background-color: #2844a1; color: #ffffff">Tambah Stok</a>
+                        <a href="delete/${item.pk}" class="btn" style="margin: 5px; background-color: #a12828; color: #ffffff">Hapus</a>
+                    </div>
+                </div>
+            </div>`;
+        });
         
-        document.getElementById("product_table").innerHTML = htmlString
+        document.getElementById("row_card_items").innerHTML = htmlString
     }
 
-    refreshProducts()
+    refreshItems()
+
+    function addItem() {
+        fetch("{% url 'main:create_item_ajax' %}", {
+            method: "POST",
+            body: new FormData(document.querySelector('#form'))
+        }).then(refreshItems)
+
+        document.getElementById("form").reset()
+        return false
+    }
+    document.getElementById("button_add").onclick = addItem
+
 </script>
 
 {% endblock content %}

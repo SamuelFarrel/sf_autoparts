@@ -111,7 +111,7 @@ def decrement_item(request, id):
     return HttpResponseRedirect(reverse('main:show_main'))
 
 def get_product_json(request):
-    item_item = Item.objects.all()
+    item_item = Item.objects.filter(user=request.user)
     return HttpResponse(serializers.serialize('json', item_item))
 
 @csrf_exempt
